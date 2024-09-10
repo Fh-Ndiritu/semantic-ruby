@@ -1,0 +1,27 @@
+<div id="<%= dom_id photo %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Title:</strong>
+    <%= photo.title %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Location:</strong>
+    <%= photo.location %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Description:</strong>
+    <%= photo.description %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Image:</strong>
+    <%= image_tag(photo.image.representation(resize_to_fill: [300, 400])) if photo.image.attached? %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Gallery:</strong>
+    <%= photo.gallery_id %>
+  </p>
+
+</div>

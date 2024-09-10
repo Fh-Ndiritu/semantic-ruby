@@ -1,0 +1,32 @@
+<div id="<%= dom_id gallery %>">
+  <p class="my-5 text-4-xl font-bold flex">
+    <strong class="block mb-1  mr-1">Title:</strong>
+    <%= gallery.title %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1  mr-1">Description:</strong>
+    <%= gallery.description %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1  mr-1">Event date:</strong>
+    <%= gallery.event_date.to_date %>
+  </p>
+
+      <%= link_to "Edit", edit_gallery_path(@gallery), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Add Photos", new_gallery_photo_path(@gallery), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Back", galleries_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <div class="inline-block ml-2">
+      <%= button_to "Destroy", @gallery, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    </div>
+
+  <div class="my-5 w-full bg-gray-100 rounded p-2 overflow-y-scroll min-h-64 max-h-96">
+    <% gallery.photos.each do |photo| %>
+      <div class="inline-block">
+        <%= image_tag photo.image.representation(resize_to_fill: [300, 400]) %>
+      </div>
+    <% end %>
+  </div>
+
+</div>
