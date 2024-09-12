@@ -11,5 +11,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root 'galleries#index'
-  get '/search_galleries', to: 'galleries#search', as: :gallery_search
+  post '/search_galleries', to: 'galleries#search', as: :gallery_search
 end

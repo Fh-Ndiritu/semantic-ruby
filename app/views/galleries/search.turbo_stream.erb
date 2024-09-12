@@ -1,0 +1,13 @@
+<div class="w-full bg-red">
+ <%= turbo_frame_tag "photos", class: "w-full flex" do %>
+  <h2 class="my-4 font-bold text-6-xl w-full text-center"> Results for query: <%= @query %></h2>
+    <div class="my-5 flex w-full rounded">
+    <% @photos.each do |photo| %>
+      <div >
+        <%= photo.similarity %>
+        <%= image_tag photo.image.representation(resize_to_fill: [300, 400]) %>
+      </div>
+    <% end %>
+  </div>
+  <% end %>
+</div>

@@ -11,10 +11,11 @@
   </div>
 
   <div class="my-4 px-2">
-    <%= form_with(url: gallery_search_path, method: :get, data: {turbo_frame: 'photos'}) do |form|%>
+    <%= form_with(url: gallery_search_path, method: :post, data: {turbo_frame: 'photos'}) do |form|%>
         <div class="p-2 my-2">
           <% form.label "Search" %>
           <%= form.text_field "query", html: { 'placeholder': "Search here"} %>
+          <%= form.file_field "image"%>
           <%= form.submit "Search" , class: "btn px-6 py-2 rounded bg-red-300 hover:bg-red-400 text-white"%>
         </div>
       <% end %>
