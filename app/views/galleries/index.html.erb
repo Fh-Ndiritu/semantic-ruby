@@ -10,6 +10,21 @@
     <%= link_to "New gallery", new_gallery_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
+  <div class="my-4 px-2">
+    <%= form_with(url: gallery_search_path, method: :get, data: {turbo_frame: 'photos'}) do |form|%>
+        <div class="p-2 my-2">
+          <% form.label "Search" %>
+          <%= form.text_field "query", html: { 'placeholder': "Search here"} %>
+          <%= form.submit "Search" , class: "btn px-6 py-2 rounded bg-red-300 hover:bg-red-400 text-white"%>
+        </div>
+      <% end %>
+  </div>
+
+<%= turbo_frame_tag 'photos' do%>
+  
+<% end %>
+
+
   <div id="galleries" class="min-w-full">
     <% @galleries.each do |gallery| %>
       <%= render partial: 'gallery_card', locals: {gallery: gallery} %>

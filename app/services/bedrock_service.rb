@@ -1,59 +1,50 @@
 # frozen_string_literal: true
 
+# interface with the Bedrock API
 class BedrockService
-
   def initialize(type: 'text', **args)
     @client = Aws::BedrockRuntime::Client.new
     @type = type
+    @query = args[:query]
     @photo = Photo.find(args[:photo_id]) if args[:photo_id]
   end
 
   def self.perform(**args)
-    self.new(**args).perform
+    new(**args).perform
   end
 
   def perform
     request_params = case @type
-    when 'text'
-      build_text_request
-    when 'image'
-      build_image_request
-    end
+                     when 'text'
+                       build_search_request
+                     when 'image'
+                       build_image_request
+                     end
 
     response = @client.invoke_model(request_params)
     data = JSON.parse(response.body.read)
-    handle_response(data)
-rescue => e
-  puts "Error: #{e}"
-end
-
-
-private
-
-def handle_response(data)
-  output = case @type
-  when 'text'
-    data.dig('results', 0, 'outputText')
-  when 'image'
-    update_photo_embedding(data.dig('embedding'))
-  else
-    data
+    case @type
+    when 'text'
+      data['embedding']
+    when 'image'
+      update_photo_embedding(data['embedding'])
+    end
+  rescue StandardError => e
+    puts "Error: #{e}"
   end
-end
 
-def build_text_request
-    model_id = "amazon.titan-text-express-v1"
-    prompt = "Describe the purpose of a 'hello world' program in one line."
+  private
+
+  def build_search_request
+    model_id = 'amazon.titan-embed-image-v1'
     body = {
-    "inputText": prompt,
-    "textGenerationConfig": {
-        "maxTokenCount": 512,
-        "temperature": 0.5,
-        "topP": 0.9
-      },
+      "inputText": @query,
+      'embeddingConfig': {
+        'outputEmbeddingLength': 1024
+      }
     }.to_json
 
-    {model_id: , body:}
+    { model_id:, body: }
   end
 
   def build_image_request
@@ -66,7 +57,7 @@ def build_text_request
       }
     }.to_json
 
-    {model_id: , body:}
+    { model_id:, body: }
   end
 
   def base64_encoded_image
@@ -88,11 +79,9 @@ def build_text_request
   def update_photo_embedding(embedding)
     @photo.embedding = embedding
 
-    if !@photo.save
-      puts "Error: Unable to save photo embedding for photo id: #{@photo_id}"
-      puts @photo.errors.full_messages
-    end
+    return if @photo.save
 
+    puts "Error: Unable to save photo embedding for photo id: #{@photo_id}"
+    puts @photo.errors.full_messages
   end
-
 end

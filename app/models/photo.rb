@@ -1,4 +1,5 @@
 class Photo < ApplicationRecord
+  include CosineSimilaritySearch
   belongs_to :gallery
   has_neighbors :embedding
   has_one_attached :image do |image|

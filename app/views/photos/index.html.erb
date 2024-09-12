@@ -14,7 +14,8 @@
       <% end %>
   </div>
 
-  <div id="photos" class="min-w-full">
+  <%= turbo_frame_tag "photos" do %>
+    <div id="photos" class="min-w-full">
     <% @photos.each do |photo| %>
       <%= render photo %>
       <p>
@@ -22,4 +23,5 @@
       </p>
     <% end %>
   </div>
+  <% end %>
 </div>
