@@ -10,11 +10,8 @@
   </div>
 
   <div id="events" class="min-w-full">
-    <% @events.each do |event| %>
-      <%= render event %>
-      <p>
-        <%= link_to "Show this event", event, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
+      <% @events.each do |event| %>
+      <%= render partial: 'event_card', locals: {event: event} %>
     <% end %>
   </div>
 </div>

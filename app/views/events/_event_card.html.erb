@@ -1,0 +1,29 @@
+<%= link_to event_path(event) do%>
+  <div 
+  id="<%= dom_id event %>"
+ class="card p-4 rounded-lg shadow-lg hover:bg-gray-200 bg-gray-100 my-4 w-1/3 relative cursor-pointer">
+  <p class="my-5 font-bold text-3-xl ">
+    <%= event.theme %>
+    
+  </p>
+
+  <p class="my-5 font-medium text-3-xl">
+        <%= event.description[0..130] %>...
+  </p>
+
+  <p class="my-5 flex">
+    <strong class="block font-medium mb-1">Event date: &nbsp;</strong>
+    <%= event.date %>
+  </p>
+
+  <div class="my-5 flex w-full bg-red-100 rounded">
+    <% event.photos.first(5).each do |photo| %>
+      <div >
+        <%= image_tag photo.representation(resize_to_fill: [100, 100]) %>
+      </div>
+    <% end %>
+  </div>
+
+</div>
+
+<% end %>

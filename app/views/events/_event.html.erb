@@ -1,22 +1,21 @@
 <div id="<%= dom_id event %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Date:</strong>
+
+  <h2 class="text-2xl font-bold"><%= event.theme %> at <%= event.organization.title %></h2>
+  <p class="my-5 flex">
+    <strong class="block font-medium mb-1">On:</strong> &nbsp;
     <%= event.date %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Theme:</strong>
-    <%= event.theme %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Description:</strong>
     <%= event.description %>
   </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Organization:</strong>
-    <%= event.organization_id %>
-  </p>
+  <div class="my-5 w-full bg-gray-100 rounded p-2 overflow-y-scroll min-h-64 max-h-96">
+    <% @event.photos.each do |photo| %>
+      <div class="inline-block">
+        <%= image_tag photo.representation(resize_to_fill: [300, 400]) %>
+      </div>
+    <% end %>
+  </div>
 
 </div>
