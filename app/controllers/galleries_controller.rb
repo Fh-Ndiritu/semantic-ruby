@@ -10,20 +10,6 @@ class GalleriesController < ApplicationController
   # GET /galleries/1 or /galleries/1.json
   def show; end
 
-  def search
-    redirect_to galleries_path unless params[:query] || params[:image]
-    @query = params[:query]
-
-    search = Search.new(query: @query, image: params[:image])
-    redirect_to galleries_path unless search.save
-
-    query_embedding = BedrockService.perform(type: 'search', search_id: search.id)
-    @photos = Photo.cosine_similarity_search(query_embedding, 5)
-    respond_to do |format|
-      format.turbo_stream.replace('photos', partial: 'galleries/search', locals: { query: @query, photos: @photos })
-    end
-  end
-
   # GET /galleries/new
   def new
     @gallery = Gallery.new

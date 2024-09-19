@@ -28,7 +28,6 @@ class BedrockService
     request_params = build_search_request
     data = fetch_embedding(request_params)
     update_search_embedding(data['embedding'])
-    true
   end
 
   def vectorize_images
@@ -69,9 +68,9 @@ class BedrockService
         'outputEmbeddingLength': 1024
       }
     }
-    body = attach_image_or_text(body).to_json
+    attach_image_or_text(body)
 
-    { model_id:, body: }
+    { model_id:, body: body.to_json }
   end
 
   def base64_encoded_image(image)
@@ -102,11 +101,13 @@ class BedrockService
   end
 
   def attach_image_or_text(body)
-    body = body.merge('inputImage' => base64_encoded_image(@search.image)) if @search.image.attached?
-    body.merge('inputText' => @search.query) if @search.query.present?
+    body.merge!('inputImage' => base64_encoded_image(@search.image)) if @search.image.attached?
+    body.merge!('inputText' => @search.query) if @search.query.present?
   end
 
   def update_search_embedding(embedding)
-    @search.update(embedding:)
+    return unless @search.update(embedding:)
+
+    embedding
   end
 end

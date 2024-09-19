@@ -1,0 +1,13 @@
+<%= turbo_frame_tag 'new_search' do%>
+    <div class="px-2 my-4  mb-0 p-12 bg-gray-100 rounded-lg flex-col text-center">
+      <%= form_with(url: searches_path, method: :post, data: {turbo_frame: 'results'}) do |form|%>
+          <div class="p-2 my-2">
+            <% form.label "Search" %>
+            <%= form.text_field "query", html: { 'placeholder': "Search here"} %>
+            <%= form.file_field "image"%>
+            <%= form.submit "Search" , class: "btn px-6 py-2 rounded bg-red-400 hover:bg-red-500 text-white"%>
+            <%= link_to "Close", organizations_path, class: 'btn px-6 py-2 rounded bg-orange-400 hover:bg-orange-500 text-white m-auto text-center ml-4 w-auto' %>
+          </div>
+        <% end %>
+  </div>
+<% end %>

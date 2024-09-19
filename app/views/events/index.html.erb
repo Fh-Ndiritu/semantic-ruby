@@ -6,7 +6,7 @@
   <% content_for :title, "Events" %>
 
   <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Events</h1>
+    <h1 class="font-bold text-4xl">Events for <%= @organization.title %></h1>
   </div>
 
   <div id="events" class="min-w-full">
@@ -14,4 +14,5 @@
       <%= render partial: 'event_card', locals: {event: event} %>
     <% end %>
   </div>
+  <%= link_to "back", root_path %>
 </div>

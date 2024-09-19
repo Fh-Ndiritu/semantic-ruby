@@ -1,12 +1,22 @@
-<div id="<%= dom_id organization %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Title:</strong>
+<%= link_to organization_events_path(organization) do%>
+  <div 
+  id="<%= dom_id organization %>"
+ class="card p-4 rounded-lg shadow-lg hover:bg-gray-200 bg-gray-100 my-4 w-full md:w-1/3 relative cursor-pointer">
+  <p class="my-5 font-bold text-3-xl ">
     <%= organization.title %>
+    
   </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Description:</strong>
-    <%= organization.description %>
+  <p class="my-5 font-medium text-3-xl">
+        <%= organization.description[0..300] %>...
   </p>
+
+  <p class="my-5 font-medium text-3-xl">
+        Total Images: <%= organization.images.size %>
+  </p>
+
 
 </div>
+
+
+<% end %>

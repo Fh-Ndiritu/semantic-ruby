@@ -1,0 +1,13 @@
+<%= turbo_frame_tag "results" do %>
+    <div class="my-5 mt-0 w-full p-4 bg-gray-100">
+      <h2 class="my-4 font-bold text-6-xl block text-center"> Results for query: <%= @query %></h2>
+        <div class="flex">
+          <% @results.each do |result| %>
+      <div >
+        <%= result.similarity.round(3) %>
+        <%= image_tag result.blob.attachments.first.representation(resize_to_fill: [150, 200]) %>
+      </div>
+    <% end %>
+        </div>
+  </div>
+  <% end %>

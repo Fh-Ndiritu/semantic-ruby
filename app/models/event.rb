@@ -6,7 +6,7 @@ class Event < ApplicationRecord
     image.variant :titan_max, resize_to_limit: [2000, 2000]
   end
 
-  after_create_commit :create_image_embedding
+  after_save_commit :create_image_embedding
 
   private
 
