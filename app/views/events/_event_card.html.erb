@@ -17,7 +17,7 @@
   </p>
 
   <div class="my-5 flex w-full bg-red-100 rounded">
-    <% event.photos.first(5).each do |photo| %>
+    <% event.images.first(5).each do |photo| %>
       <div >
         <%= image_tag photo.representation(resize_to_fill: [100, 100]) %>
       </div>

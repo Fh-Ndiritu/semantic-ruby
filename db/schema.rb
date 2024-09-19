@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_18_164153) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_19_153602) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "vector"
@@ -41,6 +41,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_18_164153) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "attachment_embeddings", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.vector "embedding", limit: 1024
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blob_id"], name: "index_attachment_embeddings_on_blob_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -83,10 +91,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_18_164153) do
     t.text "query"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.vector "embedding", limit: 1024
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "attachment_embeddings", "active_storage_blobs", column: "blob_id"
   add_foreign_key "events", "organizations"
   add_foreign_key "photos", "galleries"
 end

@@ -13,6 +13,6 @@ class Photo < ApplicationRecord
   private
 
   def create_photo_embedding
-    BedrockService.perform(type: 'image', photo_id: id)
+    BedrockService.perform(type: 'event_update', id:)
   end
 end

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :events
   end
 
-  get 'events/:id/edit_photos', to: 'events#edit_photos', as: :edit_event_photos
+  get 'events/:id/edit_images', to: 'events#edit_images', as: :edit_event_images
 
   resources :photos
   resources :galleries, shallow: true do

@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[show edit update destroy edit_photos]
+  before_action :set_event, only: %i[show edit update destroy edit_images]
   before_action :set_organization, only: %i[index new]
 
   # GET /events or /events.json
@@ -7,7 +7,7 @@ class EventsController < ApplicationController
     @events = @organization.events
   end
 
-  def edit_photos
+  def edit_images
   end
 
   # GET /events/1 or /events/1.json
@@ -69,7 +69,7 @@ class EventsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def event_params
-    params.require(:event).permit(:date, :theme, :description, :organization_id, photos: [])
+    params.require(:event).permit(:date, :theme, :description, :organization_id, images: [])
   end
 
   def set_organization

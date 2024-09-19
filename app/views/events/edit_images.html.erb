@@ -1,5 +1,5 @@
 <div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Add Photos to '<%= @event.theme %>'</h1>
+  <h1 class="font-bold text-4xl">Add images to '<%= @event.theme %>'</h1>
 
  <%= form_with(model: @event, class: "contents") do |form| %>
   <% if @event.errors.any? %>
@@ -14,13 +14,13 @@
     </div>
   <% end %>
 
-  <% @event.photos.each do |photo| %>
-    <%= form.hidden_field :photos, multiple: true, value: photo.signed_id %>
+  <% @event.images.each do |image| %>
+    <%= form.hidden_field :images, multiple: true, value: image.signed_id %>
   <% end %>
 
   <div class="my-5">
-    <%= form.label 'Add Photos' %>
-    <%= form.file_field :photos, multiple: true,  class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label 'Add images' %>
+    <%= form.file_field :images, multiple: true,  class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="inline">
