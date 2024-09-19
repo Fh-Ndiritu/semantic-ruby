@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :events, except: %i[new update edit]
+
+  resources :organizations, shallow: true do
+    resources :events
+  end
+
   resources :photos
   resources :galleries, shallow: true do
     resources :photos
@@ -10,6 +16,6 @@ Rails.application.routes.draw do
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   # Defines the root path route ("/")
-  root 'galleries#index'
+  root 'organizations#index'
   post '/search_galleries', to: 'galleries#search', as: :gallery_search
 end
