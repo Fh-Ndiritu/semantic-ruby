@@ -80,3 +80,5 @@ gem "neighbor", "~> 0.4.3"
 gem "aws-sdk", "~> 3.2"
 
 gem "rubocop", "~> 1.66"
+
+gem 'sidekiq', '~> 6.5', '>= 6.5.12'
